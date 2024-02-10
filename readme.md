@@ -1,6 +1,11 @@
+# Notice: this plugin does not currently work
+
 This is a fork of CorrectRoadH's Logseq Gallery plugin. This gallery plugin works in tandem with the Banners Logseq plugin to make a gallery view of pages using their banners as images.
 
 I'm hoping to achieve something similar, but displaying blocks instead of pages.
+
+![](./imgs/image1.jpg)
+(in such a case, a page title and icon are unnecessary)
 
 Currently a work-in-progress.
 
