@@ -1,3 +1,14 @@
+This is a fork of CorrectRoadH's Logseq Gallery plugin. This gallery plugin works in tandem with the Banners Logseq plugin to make a gallery view of pages using their banners as images.
+
+I'm hoping to achieve something similar, but displaying blocks instead of pages.
+
+Currently a work-in-progress.
+
+This is my first time working with typescript and am honestly a bit in over my head. :)
+
+
+Below is the original readme:
+
 # Logseq Gallery
 
 ## Features

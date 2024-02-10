@@ -1,8 +1,6 @@
-//import { PageEntity } from "@logseq/libs/dist/LSPlugin";
-import { BlockEntity } from "@logseq/libs/dist/LSPlugin";
+import { PageEntity } from "@logseq/libs/dist/LSPlugin";
 import React from "react";
 
-// this function should be fine for now, might handle all the nasty path parsing for us
 function processCoverURL(rawCoverURL: string): string {
   rawCoverURL = String(rawCoverURL).trim();
   
@@ -10,44 +8,29 @@ function processCoverURL(rawCoverURL: string): string {
   const matches = rawCoverURL.match(markdownImageRegex);
   if (matches && matches.length > 1) {
       return matches[1];
-    }
+  }
   return rawCoverURL;
 }
 
-// just changed page to block
-/* interface NoteProps {
+interface NoteProps {
   page: PageEntity
   graphPath:string
-} */
-interface NoteProps {
-  block: BlockEntity
-  graphPath:string
 }
+const Note = ({page,graphPath}:NoteProps) => {
 
-// page to block again
-// const Note = ({page,graphPath}:NoteProps) => {
-const Note = ({block,graphPath}:NoteProps) => {
-
-  // so this checks for the cover and banner properties (they can be used interchangeably)
-  // instead, we want it to check for the LINK property, which is what Logseq uses by default for images
-  // const rawCoverURL = page.properties?.cover || page.properties?.banner || ""
-  const rawCoverURL = block.properties?.link || ""
+  const rawCoverURL = page.properties?.cover || page.properties?.banner || ""
 
   // replace markdown image path to assert path if it is 
   // to judge if it is a markdown image path like ![xxx](path)
 
   const propsBanner =  graphPath.startsWith("http") ? graphPath: encodeURI("assets://" + graphPath + processCoverURL(rawCoverURL).replace("..", ""))
 
-// I've removed the <div> with page.name etc, not necessary for this
-
   // check is file exist
 
   return (
     <div className="w-48 whitespace-nowrap rounded-lg cursor-pointer overflow-hidden"
-    // openPage comes from Main.tsx
       data-on-click="openPage"
-      // uh oh we're gonna have to the modal that pops up when an image is clicked on
-      //data-on-click-args={page.name}
+      data-on-click-args={page.name}
     >
       <div className="flex flex-col align-middle justify-center overflow-hidden"
         style={{
@@ -63,6 +46,7 @@ const Note = ({block,graphPath}:NoteProps) => {
               height: '6rem',
               width: '12rem',
             }}
+            alt={page.name}
             src={propsBanner} 
           />
         }
@@ -81,49 +65,35 @@ const Note = ({block,graphPath}:NoteProps) => {
           backgroundColor: 'var(--ls-quaternary-background-color)'
         }}
       >
+        <div className="my-auto ml-2">{page.properties?.icon || `📄`}</div>
+        <div className="my-auto page-ref truncate">{page.originalName || page.page.originalName}</div>
       </div>
     </div>
   )
 }
 
-/* interface GalleryProps {
+interface GalleryProps {
   pages: PageEntity[]
   graphPath:string
   title: string
-} */
-
-interface GalleryProps {
-  blocks: BlockEntity[]
-  graphPath:string
-  title: string
 }
-
-//function Gallery({pages,graphPath,title}:GalleryProps) {
-function Gallery({blocks,graphPath,title}:GalleryProps) {
-  //console.log(pages)
-  console.log(blocks)
-
+function Gallery({pages,graphPath,title}:GalleryProps) {
+  console.log(pages)
   return (
     <main>
       <h3>{title}</h3>
       <div className="flex gap-4 flex-wrap">
         {
-          /* pages.map((page) => 
+          pages.map((page) => 
             <Note 
               key={page.id}
               page={page}
-              graphPath={graphPath}
-            />) */
-            blocks.map((block) => 
-            <Note 
-              key={block.id}
-              block={block}
               graphPath={graphPath}
             />)
         }
         {/* click here in to edit */}
         {
-          blocks.length === 0 && <div>There is nothing</div>
+          pages.length === 0 && <div>There is nothing</div>
         }
       </div>
     </main>

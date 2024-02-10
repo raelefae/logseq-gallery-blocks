@@ -1,6 +1,6 @@
 {
-  "name": "logseq-gallery",
-  "version": "1.7.1",
+  "name": "logseq-gallery-blocks",
+  "version": "0.0.1",
   "main": "dist/index.html",
   "scripts": {
     "dev": "vite",
@@ -37,7 +37,7 @@
     "vite-plugin-logseq": "1.1.2"
   },
   "logseq": {
-    "id": "_correctroadh-logseq-gallery",
+    "id": "_correctroadh-logseq-gallery-blocks",
     "icon": "./logo.png"
   }
 }
